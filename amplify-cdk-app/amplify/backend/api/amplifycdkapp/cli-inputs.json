@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amplifycdkapp",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/workspaces/docker-amplify-relay/amplify-cdk-app/amplify/backend/api/amplifycdkapp/schema.graphql",
+    "defaultAuthType": {
+      "mode": "API_KEY",
+      "expirationTime": 365,
+      "apiKeyExpirationDate": "2023-03-06T10:43:08.307Z",
+      "keyDescription": "demo"
+    }
+  }
+}

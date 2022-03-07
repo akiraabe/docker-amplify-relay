@@ -1,0 +1,14 @@
+{
+  "name": "React-dev-env Docker",
+  "dockerFile": "../Dockerfile",
+  "extensions": [
+    "dsznajder.es7-react-js-snippets",
+    "streetsidesoftware.code-spell-checker",
+    "dbaeumer.vscode-eslint",
+    "visualstudioexptteam.vscodeintellic",
+    "zhuangtongfa.material-theme",
+    "esbenp.prettier-vscode",
+    "donjayamanne.githistory",
+    "vscodevim.vim"
+  ]
+}
