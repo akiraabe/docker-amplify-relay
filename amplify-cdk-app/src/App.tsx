@@ -11,7 +11,7 @@ import { GraphQLResult } from '@aws-amplify/api';
 Amplify.configure(awsExports);
 
 const initialState = {
-  race_id: undefined, // place holderが出ないので仕方なくundefinedにしました。
+  raceId: undefined, // place holderが出ないので仕方なくundefinedにしました。
   name: '',
   discordId: undefined,
   section: undefined,
@@ -70,9 +70,9 @@ const App: React.VFC = () => {
     <div style={styles.container}>
       <h2>Amplify Records</h2>
       <input
-        onChange={(event) => setInput('race_id', event.target.value)}
+        onChange={(event) => setInput('raceId', event.target.value)}
         style={styles.input}
-        value={formState.race_id}
+        value={formState.raceId}
         placeholder='RaceId'
       />
       <input

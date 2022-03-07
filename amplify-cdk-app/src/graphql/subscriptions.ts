@@ -6,7 +6,7 @@ export const onCreateRecord = /* GraphQL */ `
   subscription OnCreateRecord {
     onCreateRecord {
       id
-      race_id
+      raceId
       name
       discordId
       section
@@ -22,7 +22,7 @@ export const onUpdateRecord = /* GraphQL */ `
   subscription OnUpdateRecord {
     onUpdateRecord {
       id
-      race_id
+      raceId
       name
       discordId
       section
@@ -38,7 +38,7 @@ export const onDeleteRecord = /* GraphQL */ `
   subscription OnDeleteRecord {
     onDeleteRecord {
       id
-      race_id
+      raceId
       name
       discordId
       section

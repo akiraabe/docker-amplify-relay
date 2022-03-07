@@ -4,7 +4,7 @@
 
 export type CreateRecordInput = {
   id?: string | null,
-  race_id?: number | null,
+  raceId?: number | null,
   name: string,
   discordId?: number | null,
   section?: number | null,
@@ -14,7 +14,7 @@ export type CreateRecordInput = {
 };
 
 export type ModelRecordConditionInput = {
-  race_id?: ModelIntInput | null,
+  raceId?: ModelIntInput | null,
   name?: ModelStringInput | null,
   discordId?: ModelIntInput | null,
   section?: ModelIntInput | null,
@@ -81,7 +81,7 @@ export type ModelSizeInput = {
 export type Record = {
   __typename: "Record",
   id: string,
-  race_id?: number | null,
+  raceId?: number | null,
   name: string,
   discordId?: number | null,
   section?: number | null,
@@ -94,7 +94,7 @@ export type Record = {
 
 export type UpdateRecordInput = {
   id: string,
-  race_id?: number | null,
+  raceId?: number | null,
   name?: string | null,
   discordId?: number | null,
   section?: number | null,
@@ -109,7 +109,7 @@ export type DeleteRecordInput = {
 
 export type ModelRecordFilterInput = {
   id?: ModelIDInput | null,
-  race_id?: ModelIntInput | null,
+  raceId?: ModelIntInput | null,
   name?: ModelStringInput | null,
   discordId?: ModelIntInput | null,
   section?: ModelIntInput | null,
@@ -152,7 +152,7 @@ export type CreateRecordMutation = {
   createRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,
@@ -173,7 +173,7 @@ export type UpdateRecordMutation = {
   updateRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,
@@ -194,7 +194,7 @@ export type DeleteRecordMutation = {
   deleteRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,
@@ -214,7 +214,7 @@ export type GetRecordQuery = {
   getRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,
@@ -238,7 +238,7 @@ export type ListRecordsQuery = {
     items:  Array< {
       __typename: "Record",
       id: string,
-      race_id?: number | null,
+      raceId?: number | null,
       name: string,
       discordId?: number | null,
       section?: number | null,
@@ -256,7 +256,7 @@ export type OnCreateRecordSubscription = {
   onCreateRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,
@@ -272,7 +272,7 @@ export type OnUpdateRecordSubscription = {
   onUpdateRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,
@@ -288,7 +288,7 @@ export type OnDeleteRecordSubscription = {
   onDeleteRecord?:  {
     __typename: "Record",
     id: string,
-    race_id?: number | null,
+    raceId?: number | null,
     name: string,
     discordId?: number | null,
     section?: number | null,

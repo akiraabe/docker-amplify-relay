@@ -9,7 +9,7 @@ export const createRecord = /* GraphQL */ `
   ) {
     createRecord(input: $input, condition: $condition) {
       id
-      race_id
+      raceId
       name
       discordId
       section
@@ -28,7 +28,7 @@ export const updateRecord = /* GraphQL */ `
   ) {
     updateRecord(input: $input, condition: $condition) {
       id
-      race_id
+      raceId
       name
       discordId
       section
@@ -47,7 +47,7 @@ export const deleteRecord = /* GraphQL */ `
   ) {
     deleteRecord(input: $input, condition: $condition) {
       id
-      race_id
+      raceId
       name
       discordId
       section

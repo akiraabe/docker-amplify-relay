@@ -6,7 +6,7 @@ export const getRecord = /* GraphQL */ `
   query GetRecord($id: ID!) {
     getRecord(id: $id) {
       id
-      race_id
+      raceId
       name
       discordId
       section
@@ -27,7 +27,7 @@ export const listRecords = /* GraphQL */ `
     listRecords(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        race_id
+        raceId
         name
         discordId
         section
