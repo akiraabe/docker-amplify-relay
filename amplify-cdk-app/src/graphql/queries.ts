@@ -41,3 +41,36 @@ export const listRecords = /* GraphQL */ `
     }
   }
 `;
+export const recordByRaceIdAndTeam = /* GraphQL */ `
+  query RecordByRaceIdAndTeam(
+    $raceId: Int!
+    $team: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelRecordFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    recordByRaceIdAndTeam(
+      raceId: $raceId
+      team: $team
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        raceId
+        name
+        discordId
+        section
+        team
+        result
+        description
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

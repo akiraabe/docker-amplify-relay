@@ -4,7 +4,7 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 
 type Record @model {
   id: ID!
-  raceId: Int
+  raceId: Int @index(name: "byRaceIdAndTeam", sortKeyFields: ["team"], queryField: "recordByRaceIdAndTeam")
   name: String!
   discordId: Int
   section: Int

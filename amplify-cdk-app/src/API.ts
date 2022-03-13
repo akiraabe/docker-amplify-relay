@@ -143,6 +143,22 @@ export type ModelRecordConnection = {
   nextToken?: string | null,
 };
 
+export type ModelStringKeyConditionInput = {
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type CreateRecordMutationVariables = {
   input: CreateRecordInput,
   condition?: ModelRecordConditionInput | null,
@@ -234,6 +250,35 @@ export type ListRecordsQueryVariables = {
 
 export type ListRecordsQuery = {
   listRecords?:  {
+    __typename: "ModelRecordConnection",
+    items:  Array< {
+      __typename: "Record",
+      id: string,
+      raceId?: number | null,
+      name: string,
+      discordId?: number | null,
+      section?: number | null,
+      team: string,
+      result: string,
+      description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type RecordByRaceIdAndTeamQueryVariables = {
+  raceId: number,
+  team?: ModelStringKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelRecordFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type RecordByRaceIdAndTeamQuery = {
+  recordByRaceIdAndTeam?:  {
     __typename: "ModelRecordConnection",
     items:  Array< {
       __typename: "Record",
