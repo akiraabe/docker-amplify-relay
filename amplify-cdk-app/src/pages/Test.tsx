@@ -1,10 +1,13 @@
-import { API, graphqlOperation } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RecordList } from '../components/RecordList';
-import { listRecords, recordByRaceIdAndTeam } from '../graphql/queries';
+import { recordByRaceIdAndTeam } from '../graphql/queries';
 
-import { ListRecordsQuery, CreateRecordInput, RecordByRaceIdAndTeamQuery } from '../API';
+import {
+  CreateRecordInput,
+  RecordByRaceIdAndTeamQuery,
+} from '../API';
 import { GraphQLResult } from '@aws-amplify/api';
 const Test = () => {
   const [records, setRecords] = useState<CreateRecordInput[]>([]);
@@ -16,14 +19,12 @@ const Test = () => {
   // 対象回数のデータを取得します。
   const fetchRecords = async (raceId: number) => {
     try {
-      const recordData = (await API.graphql(
-        ({
-          query: recordByRaceIdAndTeam,
-          variables: {
-            raceId: raceId,
-          },
-        })
-      )) as GraphQLResult<RecordByRaceIdAndTeamQuery>;
+      const recordData = (await API.graphql({
+        query: recordByRaceIdAndTeam,
+        variables: {
+          raceId: raceId,
+        },
+      })) as GraphQLResult<RecordByRaceIdAndTeamQuery>;
       if (recordData.data?.recordByRaceIdAndTeam?.items) {
         const records = recordData.data.recordByRaceIdAndTeam
           .items as CreateRecordInput[];
@@ -35,7 +36,8 @@ const Test = () => {
   };
 
   return (
-    <>
+    <div style={styles.container}>
+      <h2>Test Page</h2>
       <RecordList records={records} />
       <nav>
         <ul>
@@ -44,8 +46,21 @@ const Test = () => {
           </li>
         </ul>
       </nav>
-    </>
+    </div>
   );
+};
+
+const styles: {
+  [key: string]: React.CSSProperties;
+} = {
+  container: {
+    width: 400,
+    margin: '0 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 20,
+  },
 };
 
 export default Test;
