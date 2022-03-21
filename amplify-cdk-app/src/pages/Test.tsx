@@ -2,11 +2,11 @@ import { API } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RecordList } from '../components/RecordList';
-import { recordByRaceIdAndTeam } from '../graphql/queries';
+import { recordByRaceId } from '../graphql/queries';
 
 import {
   CreateRecordInput,
-  RecordByRaceIdAndTeamQuery,
+  RecordByRaceIdQuery,
 } from '../API';
 import { GraphQLResult } from '@aws-amplify/api';
 const Test = () => {
@@ -20,13 +20,13 @@ const Test = () => {
   const fetchRecords = async (raceId: number) => {
     try {
       const recordData = (await API.graphql({
-        query: recordByRaceIdAndTeam,
+        query: recordByRaceId,
         variables: {
           raceId: raceId,
         },
-      })) as GraphQLResult<RecordByRaceIdAndTeamQuery>;
-      if (recordData.data?.recordByRaceIdAndTeam?.items) {
-        const records = recordData.data.recordByRaceIdAndTeam
+      })) as GraphQLResult<RecordByRaceIdQuery>;
+      if (recordData.data?.recordByRaceId?.items) {
+        const records = recordData.data.recordByRaceId
           .items as CreateRecordInput[];
         setRecords(records);
       }

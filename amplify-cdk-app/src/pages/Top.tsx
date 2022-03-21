@@ -22,7 +22,6 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import { RecordList } from '../components/RecordList';
 import { Link } from 'react-router-dom';
-import { flexbox } from '@mui/system';
 
 Amplify.configure(awsExports);
 
@@ -30,7 +29,7 @@ const initialState = {
   raceId: 0,
   name: '',
   discordId: 9999,
-  section: 1,
+  section: 0,
   team: '',
   result: '',
   description: '',
@@ -144,7 +143,7 @@ const Top: React.VFC = () => {
               margin='dense'
               id='section'
               label='Section'
-              type='number'
+              type='text'
               fullWidth
               variant='standard'
             />

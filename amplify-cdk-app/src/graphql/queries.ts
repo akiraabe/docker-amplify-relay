@@ -41,18 +41,18 @@ export const listRecords = /* GraphQL */ `
     }
   }
 `;
-export const recordByRaceIdAndTeam = /* GraphQL */ `
-  query RecordByRaceIdAndTeam(
+export const recordByRaceId = /* GraphQL */ `
+  query RecordByRaceId(
     $raceId: Int!
-    $team: ModelStringKeyConditionInput
+    $sectionTeam: ModelRecordByRaceIdCompositeKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelRecordFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    recordByRaceIdAndTeam(
+    recordByRaceId(
       raceId: $raceId
-      team: $team
+      sectionTeam: $sectionTeam
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit

@@ -7,7 +7,7 @@ export type CreateRecordInput = {
   raceId?: number | null,
   name: string,
   discordId?: number | null,
-  section?: number | null,
+  section: number,
   team: string,
   result: string,
   description?: string | null,
@@ -84,7 +84,7 @@ export type Record = {
   raceId?: number | null,
   name: string,
   discordId?: number | null,
-  section?: number | null,
+  section: number,
   team: string,
   result: string,
   description?: string | null,
@@ -143,14 +143,19 @@ export type ModelRecordConnection = {
   nextToken?: string | null,
 };
 
-export type ModelStringKeyConditionInput = {
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
+export type ModelRecordByRaceIdCompositeKeyConditionInput = {
+  eq?: ModelRecordByRaceIdCompositeKeyInput | null,
+  le?: ModelRecordByRaceIdCompositeKeyInput | null,
+  lt?: ModelRecordByRaceIdCompositeKeyInput | null,
+  ge?: ModelRecordByRaceIdCompositeKeyInput | null,
+  gt?: ModelRecordByRaceIdCompositeKeyInput | null,
+  between?: Array< ModelRecordByRaceIdCompositeKeyInput | null > | null,
+  beginsWith?: ModelRecordByRaceIdCompositeKeyInput | null,
+};
+
+export type ModelRecordByRaceIdCompositeKeyInput = {
+  section?: number | null,
+  team?: string | null,
 };
 
 export enum ModelSortDirection {
@@ -171,7 +176,7 @@ export type CreateRecordMutation = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
@@ -192,7 +197,7 @@ export type UpdateRecordMutation = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
@@ -213,7 +218,7 @@ export type DeleteRecordMutation = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
@@ -233,7 +238,7 @@ export type GetRecordQuery = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
@@ -257,7 +262,7 @@ export type ListRecordsQuery = {
       raceId?: number | null,
       name: string,
       discordId?: number | null,
-      section?: number | null,
+      section: number,
       team: string,
       result: string,
       description?: string | null,
@@ -268,17 +273,17 @@ export type ListRecordsQuery = {
   } | null,
 };
 
-export type RecordByRaceIdAndTeamQueryVariables = {
+export type RecordByRaceIdQueryVariables = {
   raceId: number,
-  team?: ModelStringKeyConditionInput | null,
+  sectionTeam?: ModelRecordByRaceIdCompositeKeyConditionInput | null,
   sortDirection?: ModelSortDirection | null,
   filter?: ModelRecordFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type RecordByRaceIdAndTeamQuery = {
-  recordByRaceIdAndTeam?:  {
+export type RecordByRaceIdQuery = {
+  recordByRaceId?:  {
     __typename: "ModelRecordConnection",
     items:  Array< {
       __typename: "Record",
@@ -286,7 +291,7 @@ export type RecordByRaceIdAndTeamQuery = {
       raceId?: number | null,
       name: string,
       discordId?: number | null,
-      section?: number | null,
+      section: number,
       team: string,
       result: string,
       description?: string | null,
@@ -304,7 +309,7 @@ export type OnCreateRecordSubscription = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
@@ -320,7 +325,7 @@ export type OnUpdateRecordSubscription = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
@@ -336,7 +341,7 @@ export type OnDeleteRecordSubscription = {
     raceId?: number | null,
     name: string,
     discordId?: number | null,
-    section?: number | null,
+    section: number,
     team: string,
     result: string,
     description?: string | null,
