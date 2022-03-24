@@ -1,6 +1,9 @@
 import { API } from 'aws-amplify';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import * as mutations from '../graphql/mutations';
+
 import { RecordList } from '../components/RecordList';
 import { recordByRaceId } from '../graphql/queries';
 
@@ -49,6 +52,11 @@ const Test = () => {
               </li>
             </ul>
           </nav>
+          <button onClick={async () => {
+            await API.graphql({
+              query: mutations.sendSummaryEmail
+            })
+          }}>Send summary email</button>
         </div>
       )}
     </Authenticator>
