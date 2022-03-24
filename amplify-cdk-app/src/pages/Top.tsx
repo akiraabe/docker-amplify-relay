@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
-// import { withAuthenticator } from '@aws-amplify/ui-react';
 import { createRecord } from '../graphql/mutations';
 import { listRecords } from '../graphql/queries';
 
@@ -24,7 +23,6 @@ import { RecordList } from '../components/RecordList';
 import { Link } from 'react-router-dom';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-
 
 Amplify.configure(awsExports);
 
@@ -57,6 +55,8 @@ const Top: React.VFC = () => {
   }, []);
 
   const setInput = (key: string, value: string) => {
+    console.log(value);
+    // event.preventDefault();
     setFormState({ ...formState, [key]: value });
   };
 
@@ -99,97 +99,90 @@ const Top: React.VFC = () => {
     <Authenticator>
       {({ signOut, user }) => (
         <div style={styles.container}>
-          <div>
-            <div style={styles.boxContainer}>
-              <h2>Amplify Records</h2>
-              <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                <Fab size='small' color='primary' aria-label='add'>
-                  <AddIcon onClick={handleClickOpen} />
-                </Fab>
-              </Box>
-            </div>
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Subscribe</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  To subscribe to this website, please enter your email address
-                  here. We will send updates occasionally.
-                </DialogContentText>
-                <TextField
-                  onChange={(event) => setInput('raceId', event.target.value)}
-                  autoFocus
-                  margin='dense'
-                  id='raceId'
-                  label='RaceId'
-                  type='number'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('name', event.target.value)}
-                  margin='dense'
-                  id='name'
-                  label='Name'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) =>
-                    setInput('discordId', event.target.value)
-                  }
-                  margin='dense'
-                  id='discordId'
-                  label='DiscordId'
-                  type='number'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('section', event.target.value)}
-                  margin='dense'
-                  id='section'
-                  label='Section'
-                  type='number'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('team', event.target.value)}
-                  margin='dense'
-                  id='team'
-                  label='Team'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('result', event.target.value)}
-                  margin='dense'
-                  id='result'
-                  label='Result'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) =>
-                    setInput('description', event.target.value)
-                  }
-                  margin='dense'
-                  id='description'
-                  label='Description'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={addRecord}>Create Record</Button>
-              </DialogActions>
-            </Dialog>
+          <div style={styles.boxContainer}>
+            <h2>Amplify Records</h2>
+            <Box sx={{ '& > :not(style)': { m: 1 } }}>
+              <Fab size='small' color='primary' aria-label='add'>
+                <AddIcon onClick={handleClickOpen} />
+              </Fab>
+            </Box>
           </div>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Input a record</DialogTitle>
+            <DialogContent>
+              <DialogContentText>Input a record below.</DialogContentText>
+              <TextField
+                onChange={(event) => setInput('raceId', event.target.value)}
+                autoFocus
+                margin='dense'
+                id='raceId'
+                label='RaceId'
+                type='number'
+                fullWidth
+                variant='standard'
+              />
+              <TextField
+                onChange={(event) => setInput('name', event.target.value)}
+                margin='dense'
+                id='name'
+                label='Name'
+                type='text'
+                fullWidth
+                variant='standard'
+              />
+              <TextField
+                onChange={(event) => setInput('discordId', event.target.value)}
+                margin='dense'
+                id='discordId'
+                label='DiscordId'
+                type='number'
+                fullWidth
+                variant='standard'
+              />
+              <TextField
+                onChange={(event) => setInput('section', event.target.value)}
+                margin='dense'
+                id='section'
+                label='Section'
+                type='number'
+                fullWidth
+                variant='standard'
+              />
+              <TextField
+                onChange={(event) => setInput('team', event.target.value)}
+                margin='dense'
+                id='team'
+                label='Team'
+                type='text'
+                fullWidth
+                variant='standard'
+              />
+              <TextField
+                onChange={(event) => setInput('result', event.target.value)}
+                margin='dense'
+                id='result'
+                label='Result'
+                type='text'
+                fullWidth
+                variant='standard'
+              />
+              <TextField
+                onChange={(event) =>
+                  setInput('description', event.target.value)
+                }
+                margin='dense'
+                id='description'
+                label='Description'
+                type='text'
+                fullWidth
+                variant='standard'
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={addRecord}>Create Record</Button>
+            </DialogActions>
+          </Dialog>
 
           {/* とりあえずレコードを全件表示 */}
           <RecordList records={records} />
@@ -241,5 +234,5 @@ const styles: {
   },
 };
 
-//export default withAuthenticator(App);
+// export default withAuthenticator(Top);
 export default Top;

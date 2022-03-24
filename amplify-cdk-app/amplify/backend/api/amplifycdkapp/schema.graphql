@@ -12,7 +12,3 @@ type Record @model {
   result: String!
   description: String
 }
-
-type Mutation {
-  sendSummaryEmail: Boolean @function(name: "sendSummary-${env}")
-}
