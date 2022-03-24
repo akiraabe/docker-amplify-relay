@@ -19,6 +19,6 @@ export class cdkStack extends cdk.Stack {
     });
 
     // Add an email subscription
-    topic.addSubscription(new subs.EmailSubscription("akiraabe2012@gmail.com"));
+    topic.addSubscription(new subs.EmailSubscription("mail@example.com"));
   }
 }

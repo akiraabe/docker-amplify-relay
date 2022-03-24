@@ -44,3 +44,5 @@ amplifytools.xcconfig
 #amplify-do-not-edit-end
 
 amplify/team-provider-info.json
+
+amplify/backend/custom/customResource1d74a5ea/cdk-stack.ts
