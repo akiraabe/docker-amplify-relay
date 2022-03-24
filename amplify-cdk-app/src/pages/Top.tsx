@@ -22,6 +22,9 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import { RecordList } from '../components/RecordList';
 import { Link } from 'react-router-dom';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
 
 Amplify.configure(awsExports);
 
@@ -93,105 +96,114 @@ const Top: React.VFC = () => {
     setOpen(false);
   };
   return (
-    <div style={styles.container}>
-      <div>
-        <div style={styles.boxContainer}>
-          <h2>Amplify Records</h2>
-          <Box sx={{ '& > :not(style)': { m: 1 } }}>
-            <Fab size="small" color='primary' aria-label='add'>
-              <AddIcon onClick={handleClickOpen} />
-            </Fab>
-          </Box>
-        </div>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Subscribe</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              To subscribe to this website, please enter your email address
-              here. We will send updates occasionally.
-            </DialogContentText>
-            <TextField
-              onChange={(event) => setInput('raceId', event.target.value)}
-              autoFocus
-              margin='dense'
-              id='raceId'
-              label='RaceId'
-              type='number'
-              fullWidth
-              variant='standard'
-            />
-            <TextField
-              onChange={(event) => setInput('name', event.target.value)}
-              margin='dense'
-              id='name'
-              label='Name'
-              type='text'
-              fullWidth
-              variant='standard'
-            />
-            <TextField
-              onChange={(event) => setInput('discordId', event.target.value)}
-              margin='dense'
-              id='discordId'
-              label='DiscordId'
-              type='number'
-              fullWidth
-              variant='standard'
-            />
-            <TextField
-              onChange={(event) => setInput('section', event.target.value)}
-              margin='dense'
-              id='section'
-              label='Section'
-              type='text'
-              fullWidth
-              variant='standard'
-            />
-            <TextField
-              onChange={(event) => setInput('team', event.target.value)}
-              margin='dense'
-              id='team'
-              label='Team'
-              type='text'
-              fullWidth
-              variant='standard'
-            />
-            <TextField
-              onChange={(event) => setInput('result', event.target.value)}
-              margin='dense'
-              id='result'
-              label='Result'
-              type='text'
-              fullWidth
-              variant='standard'
-            />
-            <TextField
-              onChange={(event) => setInput('description', event.target.value)}
-              margin='dense'
-              id='description'
-              label='Description'
-              type='text'
-              fullWidth
-              variant='standard'
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={addRecord}>Create Record</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+    <Authenticator>
+      {({ signOut, user }) => (
+        <div style={styles.container}>
+          <div>
+            <div style={styles.boxContainer}>
+              <h2>Amplify Records</h2>
+              <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                <Fab size='small' color='primary' aria-label='add'>
+                  <AddIcon onClick={handleClickOpen} />
+                </Fab>
+              </Box>
+            </div>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Subscribe</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  To subscribe to this website, please enter your email address
+                  here. We will send updates occasionally.
+                </DialogContentText>
+                <TextField
+                  onChange={(event) => setInput('raceId', event.target.value)}
+                  autoFocus
+                  margin='dense'
+                  id='raceId'
+                  label='RaceId'
+                  type='number'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('name', event.target.value)}
+                  margin='dense'
+                  id='name'
+                  label='Name'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) =>
+                    setInput('discordId', event.target.value)
+                  }
+                  margin='dense'
+                  id='discordId'
+                  label='DiscordId'
+                  type='number'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('section', event.target.value)}
+                  margin='dense'
+                  id='section'
+                  label='Section'
+                  type='number'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('team', event.target.value)}
+                  margin='dense'
+                  id='team'
+                  label='Team'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('result', event.target.value)}
+                  margin='dense'
+                  id='result'
+                  label='Result'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) =>
+                    setInput('description', event.target.value)
+                  }
+                  margin='dense'
+                  id='description'
+                  label='Description'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={addRecord}>Create Record</Button>
+              </DialogActions>
+            </Dialog>
+          </div>
 
-      {/* とりあえずレコードを全件表示 */}
-      <RecordList records={records} />
-      <nav>
-        <ul>
-          <li>
-            <Link to='/Test'>GraphQL Test</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+          {/* とりあえずレコードを全件表示 */}
+          <RecordList records={records} />
+          <nav>
+            <ul>
+              <li>
+                <Link to='/Test'>GraphQL Test</Link>
+              </li>
+            </ul>
+          </nav>
+          <button onClick={signOut}>Sign out</button>
+        </div>
+      )}
+    </Authenticator>
   );
 };
 
@@ -223,10 +235,10 @@ const styles: {
     fontSize: 18,
     padding: '12px 0px',
   },
-  boxContainer : {
+  boxContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-  }
+  },
 };
 
 //export default withAuthenticator(App);

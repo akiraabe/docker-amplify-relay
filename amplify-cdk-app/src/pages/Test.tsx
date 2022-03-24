@@ -4,15 +4,16 @@ import { Link } from 'react-router-dom';
 import { RecordList } from '../components/RecordList';
 import { recordByRaceId } from '../graphql/queries';
 
-import {
-  CreateRecordInput,
-  RecordByRaceIdQuery,
-} from '../API';
+import { CreateRecordInput, RecordByRaceIdQuery } from '../API';
 import { GraphQLResult } from '@aws-amplify/api';
+import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
 const Test = () => {
   const [records, setRecords] = useState<CreateRecordInput[]>([]);
 
   useEffect(() => {
+    // TODO: 回数をハードコーディングしているのは暫定なので、いつかちゃんとする。
     fetchRecords(2);
   }, []);
 
@@ -36,17 +37,21 @@ const Test = () => {
   };
 
   return (
-    <div style={styles.container}>
-      <h2>Test Page</h2>
-      <RecordList records={records} />
-      <nav>
-        <ul>
-          <li>
-            <Link to='/'>Go back to Top</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <Authenticator>
+      {({ signOut, user }) => (
+        <div style={styles.container}>
+          <h2>Test Page</h2>
+          <RecordList records={records} />
+          <nav>
+            <ul>
+              <li>
+                <Link to='/'>Go back to Top</Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      )}
+    </Authenticator>
   );
 };
 
