@@ -164,6 +164,10 @@ export enum ModelSortDirection {
 }
 
 
+export type SendSummaryEmailMutation = {
+  sendSummaryEmail?: boolean | null,
+};
+
 export type CreateRecordMutationVariables = {
   input: CreateRecordInput,
   condition?: ModelRecordConditionInput | null,

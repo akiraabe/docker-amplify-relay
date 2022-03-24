@@ -49,5 +49,13 @@
       "service": "customCDK",
       "providerPlugin": "awscloudformation"
     }
+  },
+  "function": {
+    "sendSummary": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": []
+    }
   }
 }

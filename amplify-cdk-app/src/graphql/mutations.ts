@@ -2,6 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const sendSummaryEmail = /* GraphQL */ `
+  mutation SendSummaryEmail {
+    sendSummaryEmail
+  }
+`;
 export const createRecord = /* GraphQL */ `
   mutation CreateRecord(
     $input: CreateRecordInput!
