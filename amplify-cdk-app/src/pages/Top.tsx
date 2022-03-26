@@ -8,6 +8,7 @@ import { ListRecordsQuery, CreateRecordInput } from '../API';
 import awsExports from '../aws-exports';
 import { GraphQLResult } from '@aws-amplify/api';
 import {
+  AppBar,
   Box,
   Button,
   Dialog,
@@ -16,9 +17,13 @@ import {
   DialogContentText,
   DialogTitle,
   Fab,
+  IconButton,
   TextField,
+  Toolbar,
+  Typography,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import MenuIcon from '@mui/icons-material/Menu';
 import { RecordList } from '../components/RecordList';
 import { Link } from 'react-router-dom';
 import { Authenticator } from '@aws-amplify/ui-react';
@@ -98,103 +103,122 @@ const Top: React.VFC = () => {
   return (
     <Authenticator>
       {({ signOut, user }) => (
-        <div style={styles.container}>
-          <div style={styles.boxContainer}>
-            <h2>Amplify Records</h2>
-            <Box sx={{ '& > :not(style)': { m: 1 } }}>
-              <Fab size='small' color='primary' aria-label='add'>
-                <AddIcon onClick={handleClickOpen} />
-              </Fab>
-            </Box>
-          </div>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Input a record</DialogTitle>
-            <DialogContent>
-              <DialogContentText>Input a record below.</DialogContentText>
-              <TextField
-                onChange={(event) => setInput('raceId', event.target.value)}
-                autoFocus
-                margin='dense'
-                id='raceId'
-                label='RaceId'
-                type='number'
-                fullWidth
-                variant='standard'
-              />
-              <TextField
-                onChange={(event) => setInput('name', event.target.value)}
-                margin='dense'
-                id='name'
-                label='Name'
-                type='text'
-                fullWidth
-                variant='standard'
-              />
-              <TextField
-                onChange={(event) => setInput('discordId', event.target.value)}
-                margin='dense'
-                id='discordId'
-                label='DiscordId'
-                type='number'
-                fullWidth
-                variant='standard'
-              />
-              <TextField
-                onChange={(event) => setInput('section', event.target.value)}
-                margin='dense'
-                id='section'
-                label='Section'
-                type='number'
-                fullWidth
-                variant='standard'
-              />
-              <TextField
-                onChange={(event) => setInput('team', event.target.value)}
-                margin='dense'
-                id='team'
-                label='Team'
-                type='text'
-                fullWidth
-                variant='standard'
-              />
-              <TextField
-                onChange={(event) => setInput('result', event.target.value)}
-                margin='dense'
-                id='result'
-                label='Result'
-                type='text'
-                fullWidth
-                variant='standard'
-              />
-              <TextField
-                onChange={(event) =>
-                  setInput('description', event.target.value)
-                }
-                margin='dense'
-                id='description'
-                label='Description'
-                type='text'
-                fullWidth
-                variant='standard'
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={addRecord}>Create Record</Button>
-            </DialogActions>
-          </Dialog>
+        <Box sx={{ flexGrow: 1 }}>
+          <AppBar position='static'>
+            <Toolbar variant='dense'>
+              <IconButton
+                edge='start'
+                color='inherit'
+                aria-label='menu'
+                sx={{ mr: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant='h6' color='inherit' component='div'>
+                Photos
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <div style={styles.container}>
+            <div style={styles.boxContainer}>
+              <h2>Amplify Records</h2>
+              <Box sx={{ '& > :not(style)': { m: 1 } }}>
+                <Fab size='small' color='primary' aria-label='add'>
+                  <AddIcon onClick={handleClickOpen} />
+                </Fab>
+              </Box>
+            </div>
+            <Dialog open={open} onClose={handleClose}>
+              <DialogTitle>Input a record</DialogTitle>
+              <DialogContent>
+                <DialogContentText>Input a record below.</DialogContentText>
+                <TextField
+                  onChange={(event) => setInput('raceId', event.target.value)}
+                  autoFocus
+                  margin='dense'
+                  id='raceId'
+                  label='RaceId'
+                  type='number'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('name', event.target.value)}
+                  margin='dense'
+                  id='name'
+                  label='Name'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) =>
+                    setInput('discordId', event.target.value)
+                  }
+                  margin='dense'
+                  id='discordId'
+                  label='DiscordId'
+                  type='number'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('section', event.target.value)}
+                  margin='dense'
+                  id='section'
+                  label='Section'
+                  type='number'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('team', event.target.value)}
+                  margin='dense'
+                  id='team'
+                  label='Team'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) => setInput('result', event.target.value)}
+                  margin='dense'
+                  id='result'
+                  label='Result'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+                <TextField
+                  onChange={(event) =>
+                    setInput('description', event.target.value)
+                  }
+                  margin='dense'
+                  id='description'
+                  label='Description'
+                  type='text'
+                  fullWidth
+                  variant='standard'
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={addRecord}>Create Record</Button>
+              </DialogActions>
+            </Dialog>
 
-          {/* とりあえずレコードを全件表示 */}
-          <RecordList records={records} />
-          <nav>
-            <ul>
-              <li>
-                <Link to='/Test'>GraphQL Test</Link>
-              </li>
-            </ul>
-          </nav>
-          <button onClick={signOut}>Sign out</button>
-        </div>
+            {/* とりあえずレコードを全件表示 */}
+            <RecordList records={records} />
+            <nav>
+              <ul>
+                <li>
+                  <Link to='/Test'>GraphQL Test</Link>
+                </li>
+              </ul>
+            </nav>
+            <button onClick={signOut}>Sign out</button>
+          </div>
+        </Box>
       )}
     </Authenticator>
   );

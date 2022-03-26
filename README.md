@@ -11,3 +11,9 @@
 https://docs.amplify.aws/start/getting-started/installation/q/integration/react/
 
 https://docs.amplify.aws/cli/graphql/data-modeling/#configure-a-secondary-index
+
+## トラブル
+
+AmplifyのAuthenticatorと、muiのDialogが共存できないような挙動を示した。（Custom導入後）  
+一旦、Authenticatorのバージョンを１系に下げたあとに、２系に戻したら、直った。（Customも同時に削除した）  
+原因不明。

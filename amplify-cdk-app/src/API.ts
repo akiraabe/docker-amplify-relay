@@ -107,6 +107,50 @@ export type DeleteRecordInput = {
   id: string,
 };
 
+export type CreateSettingInput = {
+  id?: string | null,
+  raceId?: number | null,
+  description?: string | null,
+  enable: boolean,
+};
+
+export type ModelSettingConditionInput = {
+  raceId?: ModelIntInput | null,
+  description?: ModelStringInput | null,
+  enable?: ModelBooleanInput | null,
+  and?: Array< ModelSettingConditionInput | null > | null,
+  or?: Array< ModelSettingConditionInput | null > | null,
+  not?: ModelSettingConditionInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type Setting = {
+  __typename: "Setting",
+  id: string,
+  raceId?: number | null,
+  description?: string | null,
+  enable: boolean,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type UpdateSettingInput = {
+  id: string,
+  raceId?: number | null,
+  description?: string | null,
+  enable?: boolean | null,
+};
+
+export type DeleteSettingInput = {
+  id: string,
+};
+
 export type ModelRecordFilterInput = {
   id?: ModelIDInput | null,
   raceId?: ModelIntInput | null,
@@ -140,6 +184,22 @@ export type ModelIDInput = {
 export type ModelRecordConnection = {
   __typename: "ModelRecordConnection",
   items:  Array<Record | null >,
+  nextToken?: string | null,
+};
+
+export type ModelSettingFilterInput = {
+  id?: ModelIDInput | null,
+  raceId?: ModelIntInput | null,
+  description?: ModelStringInput | null,
+  enable?: ModelBooleanInput | null,
+  and?: Array< ModelSettingFilterInput | null > | null,
+  or?: Array< ModelSettingFilterInput | null > | null,
+  not?: ModelSettingFilterInput | null,
+};
+
+export type ModelSettingConnection = {
+  __typename: "ModelSettingConnection",
+  items:  Array<Setting | null >,
   nextToken?: string | null,
 };
 
@@ -227,6 +287,57 @@ export type DeleteRecordMutation = {
   } | null,
 };
 
+export type CreateSettingMutationVariables = {
+  input: CreateSettingInput,
+  condition?: ModelSettingConditionInput | null,
+};
+
+export type CreateSettingMutation = {
+  createSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateSettingMutationVariables = {
+  input: UpdateSettingInput,
+  condition?: ModelSettingConditionInput | null,
+};
+
+export type UpdateSettingMutation = {
+  updateSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteSettingMutationVariables = {
+  input: DeleteSettingInput,
+  condition?: ModelSettingConditionInput | null,
+};
+
+export type DeleteSettingMutation = {
+  deleteSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetRecordQueryVariables = {
   id: string,
 };
@@ -266,6 +377,44 @@ export type ListRecordsQuery = {
       team: string,
       result: string,
       description?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetSettingQueryVariables = {
+  id: string,
+};
+
+export type GetSettingQuery = {
+  getSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListSettingsQueryVariables = {
+  filter?: ModelSettingFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSettingsQuery = {
+  listSettings?:  {
+    __typename: "ModelSettingConnection",
+    items:  Array< {
+      __typename: "Setting",
+      id: string,
+      raceId?: number | null,
+      description?: string | null,
+      enable: boolean,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -345,6 +494,42 @@ export type OnDeleteRecordSubscription = {
     team: string,
     result: string,
     description?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateSettingSubscription = {
+  onCreateSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateSettingSubscription = {
+  onUpdateSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteSettingSubscription = {
+  onDeleteSetting?:  {
+    __typename: "Setting",
+    id: string,
+    raceId?: number | null,
+    description?: string | null,
+    enable: boolean,
     createdAt: string,
     updatedAt: string,
   } | null,

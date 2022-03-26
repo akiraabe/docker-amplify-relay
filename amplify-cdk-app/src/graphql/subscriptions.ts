@@ -50,3 +50,39 @@ export const onDeleteRecord = /* GraphQL */ `
     }
   }
 `;
+export const onCreateSetting = /* GraphQL */ `
+  subscription OnCreateSetting {
+    onCreateSetting {
+      id
+      raceId
+      description
+      enable
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateSetting = /* GraphQL */ `
+  subscription OnUpdateSetting {
+    onUpdateSetting {
+      id
+      raceId
+      description
+      enable
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteSetting = /* GraphQL */ `
+  subscription OnDeleteSetting {
+    onDeleteSetting {
+      id
+      raceId
+      description
+      enable
+      createdAt
+      updatedAt
+    }
+  }
+`;

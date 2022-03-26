@@ -41,6 +41,37 @@ export const listRecords = /* GraphQL */ `
     }
   }
 `;
+export const getSetting = /* GraphQL */ `
+  query GetSetting($id: ID!) {
+    getSetting(id: $id) {
+      id
+      raceId
+      description
+      enable
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listSettings = /* GraphQL */ `
+  query ListSettings(
+    $filter: ModelSettingFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listSettings(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        raceId
+        description
+        enable
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const recordByRaceId = /* GraphQL */ `
   query RecordByRaceId(
     $raceId: Int!

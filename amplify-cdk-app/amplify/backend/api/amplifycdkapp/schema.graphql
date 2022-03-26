@@ -12,3 +12,10 @@ type Record @model {
   result: String!
   description: String
 }
+
+type Setting @model {
+  id: ID!
+  raceId: Int
+  description: String
+  enable: Boolean!
+}
