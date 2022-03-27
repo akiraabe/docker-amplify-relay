@@ -1,69 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import { Amplify, API, graphqlOperation } from 'aws-amplify';
-import { createRecord } from '../graphql/mutations';
 import { listRecords } from '../graphql/queries';
 
 import { ListRecordsQuery, CreateRecordInput } from '../API';
 
 import awsExports from '../aws-exports';
 import { GraphQLResult } from '@aws-amplify/api';
-import {
-  AppBar,
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Fab,
-  IconButton,
-  TextField,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { Box, Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import MenuIcon from '@mui/icons-material/Menu';
 import { RecordList } from '../components/RecordList';
 import { Link } from 'react-router-dom';
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import { Header } from '../components/Header';
+import { InputRecordDialog } from '../components/InputRecordDialog';
 
 Amplify.configure(awsExports);
 
-const initialState = {
-  raceId: 0,
-  name: '',
-  discordId: 9999,
-  section: 0,
-  team: '',
-  result: '',
-  description: '',
-};
-
 const Top: React.VFC = () => {
   const [open, setOpen] = React.useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const [formState, setFormState] = useState(initialState);
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
   const [records, setRecords] = useState<CreateRecordInput[]>([]);
 
   useEffect(() => {
     fetchRecords();
   }, []);
-
-  const setInput = (key: string, value: string) => {
-    console.log(value);
-    // event.preventDefault();
-    setFormState({ ...formState, [key]: value });
-  };
 
   const fetchRecords = async () => {
     try {
@@ -80,139 +46,32 @@ const Top: React.VFC = () => {
     }
   };
 
-  const addRecord = async () => {
-    try {
-      if (
-        !formState.name ||
-        !formState.description ||
-        !formState.team ||
-        !formState.discordId
-      )
-        return;
-      const record: CreateRecordInput = { ...formState };
-      setRecords([...records, record]);
-      setFormState(initialState);
-      (await API.graphql(
-        graphqlOperation(createRecord, { input: record })
-      )) as GraphQLResult<CreateRecordInput>;
-    } catch (err) {
-      console.log('error creating record:', err);
-    }
-    setOpen(false);
-  };
   return (
     <Authenticator>
       {({ signOut, user }) => (
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position='static'>
-            <Toolbar variant='dense'>
-              <IconButton
-                edge='start'
-                color='inherit'
-                aria-label='menu'
-                sx={{ mr: 2 }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant='h6' color='inherit' component='div'>
-                Photos
-              </Typography>
-            </Toolbar>
-          </AppBar>
+          <Header />
           <div style={styles.container}>
             <div style={styles.boxContainer}>
-              <h2>Amplify Records</h2>
+              <h2>結果一覧</h2>
               <Box sx={{ '& > :not(style)': { m: 1 } }}>
                 <Fab size='small' color='primary' aria-label='add'>
                   <AddIcon onClick={handleClickOpen} />
                 </Fab>
               </Box>
             </div>
-            <Dialog open={open} onClose={handleClose}>
-              <DialogTitle>Input a record</DialogTitle>
-              <DialogContent>
-                <DialogContentText>Input a record below.</DialogContentText>
-                <TextField
-                  onChange={(event) => setInput('raceId', event.target.value)}
-                  autoFocus
-                  margin='dense'
-                  id='raceId'
-                  label='RaceId'
-                  type='number'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('name', event.target.value)}
-                  margin='dense'
-                  id='name'
-                  label='Name'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) =>
-                    setInput('discordId', event.target.value)
-                  }
-                  margin='dense'
-                  id='discordId'
-                  label='DiscordId'
-                  type='number'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('section', event.target.value)}
-                  margin='dense'
-                  id='section'
-                  label='Section'
-                  type='number'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('team', event.target.value)}
-                  margin='dense'
-                  id='team'
-                  label='Team'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) => setInput('result', event.target.value)}
-                  margin='dense'
-                  id='result'
-                  label='Result'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-                <TextField
-                  onChange={(event) =>
-                    setInput('description', event.target.value)
-                  }
-                  margin='dense'
-                  id='description'
-                  label='Description'
-                  type='text'
-                  fullWidth
-                  variant='standard'
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
-                <Button onClick={addRecord}>Create Record</Button>
-              </DialogActions>
-            </Dialog>
-
+            <InputRecordDialog
+              open={open}
+              setOpen={setOpen}
+              records={records}
+              setRecords={setRecords}
+            />
             {/* とりあえずレコードを全件表示 */}
             <RecordList records={records} />
             <nav>
               <ul>
                 <li>
-                  <Link to='/Test'>GraphQL Test</Link>
+                  <Link to='/Test'>区間別</Link>
                 </li>
               </ul>
             </nav>

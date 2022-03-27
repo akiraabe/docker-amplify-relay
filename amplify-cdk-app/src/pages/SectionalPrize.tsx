@@ -11,7 +11,7 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Header } from '../components/Header';
 
-const Test = () => {
+const SectionalPrize = () => {
   const [records, setRecords] = useState<CreateRecordInput[]>([]);
 
   useEffect(() => {
@@ -31,12 +31,36 @@ const Test = () => {
       if (recordData.data?.recordByRaceId?.items) {
         const records = recordData.data.recordByRaceId
           .items as CreateRecordInput[];
-        setRecords(records);
+        const first = filterBySection(1, records);
+        const second = filterBySection(2, records);
+        const third = filterBySection(3, records);
+        const fourth = filterBySection(4, records);
+        const sectionalPrizes = first.concat(second, third, fourth);
+        setRecords(sectionalPrizes);
       }
     } catch (err) {
       console.log('error fetching records');
     }
   };
+
+   /**
+   * 各区間の最速ランナーを返す
+   * @param {*} section
+   * @param {*} items
+   * @returns
+   */
+    const filterBySection = (section: number, items: any) => {
+      const filtered = items.filter((item: { section: number; }) => item.section === section);
+      filtered.sort((a: { result: string; }, b: { result: string; }) => {
+        if (a.result > b.result) {
+          return 1;
+        } else {
+          return -1;
+        }
+      });
+      const best = filtered.slice(0, 1);
+      return best;
+    };
 
   return (
     <Authenticator>
@@ -44,15 +68,15 @@ const Test = () => {
         <>
           <Header />
           <div style={styles.container}>
-            <h2>区間別</h2>
+            <h2>区間賞</h2>
             <RecordList records={records} />
             <nav>
               <ul>
                 <li>
-                  <Link to='/'>Go back to Top</Link>
+                  <Link to='/Test'>区間別</Link>
                 </li>
                 <li>
-                  <Link to='/SectionalPrize'>区間賞</Link>
+                  <Link to='/TeamResults'>最終結果</Link>
                 </li>
               </ul>
             </nav>
@@ -76,4 +100,4 @@ const styles: {
   },
 };
 
-export default Test;
+export default SectionalPrize;
