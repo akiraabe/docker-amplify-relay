@@ -46,6 +46,11 @@ const Top: React.VFC = () => {
     }
   };
 
+  const openDetail = (record: CreateRecordInput) => {
+    console.log('openDetail is pressed');
+    console.log(record);
+  };
+
   return (
     <Authenticator>
       {({ signOut, user }) => (
@@ -67,7 +72,7 @@ const Top: React.VFC = () => {
               setRecords={setRecords}
             />
             {/* とりあえずレコードを全件表示 */}
-            <RecordList records={records} />
+            <RecordList records={records} openDetail={openDetail}/>
             <nav>
               <ul>
                 <li>
@@ -87,7 +92,7 @@ const styles: {
   [key: string]: React.CSSProperties;
 } = {
   container: {
-    width: 400,
+    width: 450,
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',

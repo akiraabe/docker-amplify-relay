@@ -61,7 +61,9 @@ const SectionalPrize = () => {
       const best = filtered.slice(0, 1);
       return best;
     };
-
+    const removeRecord = () => {
+      console.log('removeRecord is pressed');
+    };
   return (
     <Authenticator>
       {({ signOut, user }) => (
@@ -69,7 +71,7 @@ const SectionalPrize = () => {
           <Header />
           <div style={styles.container}>
             <h2>区間賞</h2>
-            <RecordList records={records} />
+            <RecordList records={records} openDetail={null}/>
             <nav>
               <ul>
                 <li>

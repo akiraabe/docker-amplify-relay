@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -8,6 +9,8 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons/faEllipsisV';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CreateRecordInput } from '../API';
 
 // type Record = {
@@ -20,9 +23,10 @@ import { CreateRecordInput } from '../API';
 
 interface Props {
   records: CreateRecordInput[];
+  openDetail: any | null;
 }
 
-export const RecordList: React.FC<Props> = ({ records }) => {
+export const RecordList: React.FC<Props> = ({ records, openDetail }) => {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -32,6 +36,7 @@ export const RecordList: React.FC<Props> = ({ records }) => {
             <TableCell>Runner</TableCell>
             <TableCell>Team</TableCell>
             <TableCell>Result</TableCell>
+            {openDetail !== null && <TableCell></TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -41,6 +46,13 @@ export const RecordList: React.FC<Props> = ({ records }) => {
               <TableCell>{record.name}</TableCell>
               <TableCell>{record.team}</TableCell>
               <TableCell>{record.result}</TableCell>
+              {openDetail !== null && (
+                <TableCell>
+                  <IconButton color='primary' onClick={() => openDetail(record)}>
+                    <FontAwesomeIcon icon={faEllipsisV} />
+                  </IconButton>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>
