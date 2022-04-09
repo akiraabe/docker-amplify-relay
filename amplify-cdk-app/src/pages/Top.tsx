@@ -72,7 +72,7 @@ const Top: React.VFC = () => {
               setRecords={setRecords}
             />
             {/* とりあえずレコードを全件表示 */}
-            <RecordList records={records} openDetail={openDetail}/>
+            <RecordList records={records} openDetail={openDetail} setRecords={setRecords}/>
             <nav>
               <ul>
                 <li>

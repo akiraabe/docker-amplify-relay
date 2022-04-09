@@ -38,6 +38,7 @@ const Test = () => {
     }
   };
 
+  
   const openDetail = (record: CreateRecordInput) => {
     console.log('openDetail is pressed');
     console.log(record);
@@ -50,7 +51,7 @@ const Test = () => {
           <Header />
           <div style={styles.container}>
             <h2>区間別</h2>
-            <RecordList records={records} openDetail={openDetail}/>
+            <RecordList records={records} openDetail={openDetail} setRecords={setRecords}/>
             <nav>
               <ul>
                 <li>

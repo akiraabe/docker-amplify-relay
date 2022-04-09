@@ -71,7 +71,7 @@ const SectionalPrize = () => {
           <Header />
           <div style={styles.container}>
             <h2>区間賞</h2>
-            <RecordList records={records} openDetail={null}/>
+            <RecordList records={records} openDetail={null} setRecords={setRecords}/>
             <nav>
               <ul>
                 <li>
