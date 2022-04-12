@@ -51,8 +51,19 @@ export const EditRecordDialog: React.FC<Props> = ({ open, setOpen, record, setRe
       )
         return;
       const record: UpdateRecordInput = { ...formState };
-      //TODO: AddではなくReplaceする。
-      setRecords([...records, record]);
+      //State上のListの更新
+      //setRecords([...records, record]);
+      let idx = 0;
+      let loopCnt = 0;
+      for (var o of records) {
+        if (record.id === o.id) {
+          idx = loopCnt;
+        }
+        loopCnt++;
+      }
+      records[idx] = record;
+      setRecords(records);
+
       setFormState(initialState);
       console.log('editRecord');
       console.log(record);
@@ -67,8 +78,7 @@ export const EditRecordDialog: React.FC<Props> = ({ open, setOpen, record, setRe
 
   const removeRecord = async () => {
     try {
-      //TODO: AddではなくReplaceする。
-      //setRecords([...records, record]);
+      setRecords(records.filter((e: any) => e.id !== record.id));
       setFormState(initialState);
       console.log('deleteRecord');
       console.log(record);
