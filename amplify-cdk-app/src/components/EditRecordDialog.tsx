@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 import { API, graphqlOperation } from 'aws-amplify';
 import { GraphQLResult } from '@aws-amplify/api';
-import React, { useContext } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { UpdateRecordInput } from '../API';
-import { updateRecord } from '../graphql/mutations';
+import { DeleteRecordInput, UpdateRecordInput } from '../API';
+import { deleteRecord, updateRecord } from '../graphql/mutations';
 
 interface Props {
   open: boolean;
@@ -61,6 +61,22 @@ export const EditRecordDialog: React.FC<Props> = ({ open, setOpen, record, setRe
       )) as GraphQLResult<UpdateRecordInput>;
     } catch (err) {
       console.log('error updating record:', err);
+    }
+    setOpen(false);
+  };
+
+  const removeRecord = async () => {
+    try {
+      //TODO: AddではなくReplaceする。
+      //setRecords([...records, record]);
+      setFormState(initialState);
+      console.log('deleteRecord');
+      console.log(record);
+      (await API.graphql(
+        graphqlOperation(deleteRecord, { input: { id: record.id} })
+      )) as GraphQLResult<DeleteRecordInput>;
+    } catch (err) {
+      console.log('error deleting record:', err);
     }
     setOpen(false);
   };
@@ -153,6 +169,7 @@ export const EditRecordDialog: React.FC<Props> = ({ open, setOpen, record, setRe
           Cancel
         </Button>
         <Button onClick={editRecord}>Edit Record</Button>
+        <Button onClick={removeRecord}>Remove Record</Button>
       </DialogActions>
     </Dialog>
   );
